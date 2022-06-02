@@ -6,7 +6,13 @@ export class Letters extends Component {
     return (
       <div>
         <div>Available Letters:</div>
-        <Letter />
+        {Object.keys(this.props.letterStatus).map((l) => {
+          return this.props.letterStatus[l] ? (
+            <Letter key={l} letter={l} className='crossed-out' />
+          ) : (
+            <Letter key={l} letter={l} />
+          );
+        })}
       </div>
     );
   }

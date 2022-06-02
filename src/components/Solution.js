@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
+import Letter from './Letter';
 
 export class Solution extends Component {
   render() {
-    let underscores = ['_ ', '_ ', '_ ', '_'];
+    let word = this.props.solution.word.split('');
 
     return (
       <div>
-        {underscores.map((u) => (
-          <span>{u}</span>
-        ))}
+        {word.map((l) => {
+          return this.props.letterStatus[l] ? (
+            <Letter key={l} letter={l} />
+          ) : (
+            '_'
+          );
+        })}
+        <div>
+          <em>{this.props.solution.hint}</em>
+        </div>
       </div>
     );
   }
