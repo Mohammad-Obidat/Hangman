@@ -3,11 +3,11 @@ import Letter from './Letter';
 
 export class Solution extends Component {
   render() {
-    let word = this.props.solution.word.split('');
+    let letters = this.props.solution.word.split('');
 
     return (
       <div>
-        {word.map((l) => {
+        {letters.map((l) => {
           return this.props.letterStatus[l] ? (
             <Letter key={l} letter={l} />
           ) : (

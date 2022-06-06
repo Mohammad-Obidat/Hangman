@@ -10,7 +10,7 @@ export class Letters extends Component {
           return this.props.letterStatus[l] ? (
             <Letter key={l} letter={l} className='crossed-out' />
           ) : (
-            <Letter key={l} letter={l} />
+            <Letter key={l} letter={l} selectLetter={this.props.selectLetter} />
           );
         })}
       </div>

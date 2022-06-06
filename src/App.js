@@ -25,6 +25,47 @@ class App extends Component {
     return letterStatus;
   }
 
+  reset = () => {
+    this.setState({
+      letterStatus: this.generateLetterStatuses(),
+      score: 100,
+    });
+  };
+
+  checkWinner = () => {
+    let score = this.state.score;
+
+    if (score <= 0) {
+      alert('You lost');
+      this.reset();
+    } else {
+      let letters = this.state.solution.word.split('');
+      let userWon = letters.every((l) => this.state.letterStatus[l]);
+
+      if (userWon) {
+        alert('You won!');
+        this.reset();
+      }
+    }
+  };
+
+  selectLetter = (letter) => {
+    let letterStatus = { ...this.state.letterStatus };
+    let score = this.state.score;
+
+    if (letterStatus[letter]) {
+      return;
+    }
+
+    if (this.state.solution.word.includes(letter)) {
+      score += 5;
+    } else score -= 20;
+
+    letterStatus[letter] = true;
+
+    this.setState({ letterStatus, score }, this.checkWinner);
+  };
+
   render() {
     return (
       <div className='App'>
@@ -33,7 +74,10 @@ class App extends Component {
           letterStatus={this.state.letterStatus}
           solution={this.state.solution}
         />
-        <Letters letterStatus={this.state.letterStatus} />
+        <Letters
+          letterStatus={this.state.letterStatus}
+          selectLetter={this.selectLetter}
+        />
       </div>
     );
   }
